@@ -1,11 +1,14 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
-
+import { Box,Button, Card,Center,Image, CardBody, CardFooter, CardHeader, Flex, Heading, Link, SimpleGrid, Text } from '@chakra-ui/react'
+import React from 'react'
+import { TbGitFork, TbStar } from "react-icons/tb";
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({userData,projectData}) {
+  console.log('userData:', userData)
+  let data=projectData.items
   return (
     <>
       <Head>
@@ -14,110 +17,89 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+      <main>
+        <div style={{display:"flex"}} >
+          <div style={{background:"#1A202C", color:"white", width:"30%"}} >
+            <Center>
+                  <div style={{display:"flex",justifyContent:"center", alignItems:"center", flexDirection:"column"}} >
+
+                <Image alt="image" style={{borderRadius:"50%", width:"40%", padding:"10px"}} src={userData.avatar_url} />
+                <Text textAlign="center">Swarup Kadoli</Text>
+                <Text textAlign="center">{userData.login}</Text>
+                <Text textAlign="center" p="0px 20px" >A passionate and curious web developer, likes to build websites and explore new things.</Text>
+                <Flex gap="20px">
+                    <a href="https://drive.google.com/file/d/1c9e3JeMGi_Lm-e_JjNd3ChNQyBGg7JZE/view?usp=share_link" ><Button colorScheme="blue" padding="10px 30px">Resume</Button></a>
+                    <Link href={userData.html_url}><Button colorScheme="blue" padding="10px 30px">Follow</Button></Link>
+                </Flex>
+                </div>
+            </Center>
+            <SimpleGrid gap="15px" columns={3} m="10px">
+              <span style={{border:"1px solid gray", padding:"2px"}} >React</span>
+              <span style={{border:"1px solid gray", padding:"2px"}} >Advance JavaScript</span>
+              <span style={{border:"1px solid gray", padding:"2px"}} >HTML & CSS</span>
+              <span style={{border:"1px solid gray", padding:"2px"}} >Basics of Python</span>
+              <span style={{border:"1px solid gray", padding:"2px"}} >DSA</span>
+              <span style={{border:"1px solid gray", padding:"2px"}} >Chakra UI</span>
+            </SimpleGrid>
+            <Box >
+              <Heading p="15px" fontSize="20px" >Experience</Heading>
+              <Box p="15px">
+                <Text>Full Stack Web Development [Full-Time]</Text>
+                <Text>Masai School</Text>
+                <Text>July 2022 - Pursuing</Text>
+              </Box>
+              <Box p="15px">
+                <Text>Bachelor of Computer Application</Text>
+                <Text>Shivraj College, Gadhinglaj.</Text>
+                <Text>[Shivaji University, Kolhapur]</Text>
+                <Text>May/2019 - July-2022</Text>
+              </Box>
+              <Box p="15px">
+                <Text>HSC [12th Board]</Text>
+                <Text>M. R. Jr College, Gadhinglaj,</Text>
+                <Text>Dist. Kolhapur</Text>
+                <Text>Jun/2018 - July-2019</Text>
+              </Box>
+            </Box>
           </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
+          <div style={{border:"1px solid blue", width:"70%"}}>
+            <Box border="1px solid green" height="1000px" width="90%" margin="auto" >
+            <Heading>Projects</Heading>
+            <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(400px, 1fr))'>
+                {data.map((el)=>(
+                    <Link href={el.html_url} border="1px solid black" key={el.id} >
+                        <Flex justifyContent="space-between" >
+                            <Box>
+                                <Heading size='md'>{el.name}</Heading>
+                                <Text>{el.full_name}</Text>
+                                <div style={{display:"flex"}} >
+                                <Flex gap="10px" m="10px"><TbStar /> {el.stargazers_count}</Flex>
+                                <Flex gap="10px" m="10px"><TbGitFork />{el.forks}</Flex>
+                                </div>
+                            </Box>
+                            <Box>
+                                <Text>{el.language}</Text>
+                            </Box>
+                        </Flex>
+                    </Link>
+                    ))}
+              </SimpleGrid>
+            </Box>
           </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
         </div>
       </main>
     </>
   )
+}
+export async function getStaticProps() {
+  let res = await fetch(`https://api.github.com/users/swarup-1`)
+  let userData = await res.json()
+  let resp = await fetch("https://api.github.com/search/repositories?q=user:swarup-1+fork:true&sort=updated&per_page=10&type=Repositories")
+  let projectData = await resp.json()
+  return {
+    props: {
+      userData,
+      projectData,
+    }, // will be passed to the page component as props
+  }
 }
